@@ -757,11 +757,11 @@
       letter-spacing: 0.1em;
     }
 
-    .psst-img {
+    .lock-art {
       display: block;
-      width: min(400px, 86vw);
+      width: min(300px, 72vw);
       height: auto;
-      margin: 0 auto;
+      margin: 0 auto 1.1rem;
     }
 
     .chapter-caption {
@@ -1074,10 +1074,10 @@
     <div class="chapter">
       <div class="chapter-head reveal">
         <span class="chapter-dot"></span>
-        <img class="psst-img" src="psst.jpeg" alt="Pssst… a secret for our guests" />
+        <h2 class="chapter-title" id="guests-title">Psst&hellip;</h2>
       </div>
       <div class="guest-lock reveal" id="guest-lock">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+        <img class="lock-art" src="psst.jpeg" alt="Pssst… a secret for our guests" />
         <p class="guest-hint" id="guests-hint">Enter the little code we shared with you</p>
         <div class="guest-row">
           <input id="guest-code" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" />
@@ -1133,6 +1133,7 @@
         ch4Date: '29 November 2026',
         ch4Title: '...we say <span class="i-do">\u201cI do\u201d</span>',
         backTop: 'back to the countdown',
+        guestsTitle: 'Psst\u2026',
         guestsHint: 'Enter the little code we shared with you',
         guestsUnlock: 'Unlock',
         guestsErr: 'Hmm, wrong code — try again',
@@ -1164,6 +1165,7 @@
         ch4Date: '29 พฤศจิกายน พ.ศ. 2569',
         ch4Title: '...เราจะให้<span class="i-do">คำสัญญา</span>',
         backTop: 'กลับไปที่การนับถอยหลัง',
+        guestsTitle: 'เฮ้ย\u2026',
         guestsHint: 'ใส่รหัสเล็กๆ ที่เราส่งให้คุณ',
         guestsUnlock: 'ปลดล็อก',
         guestsErr: 'รหัสไม่ถูกต้อง ลองอีกครั้ง',
@@ -1195,6 +1197,7 @@
         ch4Date: '29 November 2026',
         ch4Title: '...kita ucapkan <span class="i-do">janji suci</span>',
         backTop: 'kembali ke hitung mundur',
+        guestsTitle: 'Pst\u2026',
         guestsHint: 'Masukkan kode kecil yang kami bagikan',
         guestsUnlock: 'Buka',
         guestsErr: 'Hmm, kode salah — coba lagi',
@@ -1416,7 +1419,7 @@
       document.getElementById('ch4-date').textContent = t.ch4Date;
       document.getElementById('ch4-title').innerHTML = t.ch4Title;
       document.getElementById('back-top').textContent = t.backTop;
-      // section title is an illustration — no text to localize
+      document.getElementById('guests-title').textContent = t.guestsTitle;
       document.getElementById('guests-hint').textContent = t.guestsHint;
       document.getElementById('guest-unlock').textContent = t.guestsUnlock;
       document.getElementById('guest-err').textContent = t.guestsErr;
