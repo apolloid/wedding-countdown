@@ -939,6 +939,8 @@
         gateEyebrow: 'The wedding of',
         gateBtn: 'Step Into Our Story',
         married: 'Just Married',
+        marriedToday: 'Today is the day!',
+        marriedFor: 'Married for',
         scrollHint: 'scroll — our story',
         storyEyebrow: 'Our Story',
         chatStatus: 'online',
@@ -962,6 +964,8 @@
         gateEyebrow: 'งานแต่งงานของ',
         gateBtn: 'ก้าวเข้าสู่เรื่องราวของเรา',
         married: 'เราแต่งงานกันแล้ว',
+        marriedToday: 'วันนี้แล้ว!',
+        marriedFor: 'แต่งงานกันมาแล้ว',
         scrollHint: 'เลื่อนลง — เรื่องราวของเรา',
         storyEyebrow: 'เรื่องราวของเรา',
         chatStatus: 'ออนไลน์',
@@ -985,6 +989,8 @@
         gateEyebrow: 'Pernikahan',
         gateBtn: 'Masuki Kisah Kami',
         married: 'Resmi Menikah',
+        marriedToday: 'Hari ini harinya!',
+        marriedFor: 'Sudah menikah selama',
         scrollHint: 'gulir — kisah kami',
         storyEyebrow: 'Kisah Kami',
         chatStatus: 'online',
@@ -1103,8 +1109,11 @@
       if (wedImg) updateWed();
     }
 
+    let currentT = I18N.en;
+
     function setLang(lang) {
       const t = I18N[lang] || I18N.en;
+      currentT = t;
       document.documentElement.lang = lang;
       document.body.dataset.lang = lang;
       document.title = `Adi & Natthawipa — ${t.eyebrow}`;
@@ -1155,22 +1164,27 @@
       countdown: document.getElementById('countdown'),
       married: document.getElementById('married'),
       message: document.getElementById('message'),
+      eyebrowEl: document.getElementById('eyebrow'),
     };
 
+    // Counts down until the wedding, then flips and counts up —
+    // "Today is the day!" for the first 24h, then "Married for" forever.
     function tick() {
       const diff = WEDDING_DATE - new Date();
+      const v = Math.abs(diff);
+
+      els.days.textContent = Math.floor(v / 864e5);
+      els.hours.textContent = String(Math.floor(v / 36e5) % 24).padStart(2, '0');
+      els.minutes.textContent = String(Math.floor(v / 6e4) % 60).padStart(2, '0');
+      els.seconds.textContent = String(Math.floor(v / 1e3) % 60).padStart(2, '0');
 
       if (diff <= 0) {
-        els.countdown.style.display = 'none';
+        els.eyebrowEl.textContent = currentT.married;
+        document.title = `Adi & Natthawipa — ${currentT.married}`;
         els.message.style.display = 'none';
         els.married.style.display = 'block';
-        return;
+        els.married.textContent = v < 864e5 ? currentT.marriedToday : currentT.marriedFor;
       }
-
-      els.days.textContent = Math.floor(diff / 864e5);
-      els.hours.textContent = String(Math.floor(diff / 36e5) % 24).padStart(2, '0');
-      els.minutes.textContent = String(Math.floor(diff / 6e4) % 60).padStart(2, '0');
-      els.seconds.textContent = String(Math.floor(diff / 1e3) % 60).padStart(2, '0');
     }
 
     tick();
