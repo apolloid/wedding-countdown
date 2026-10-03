@@ -244,10 +244,37 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      transition: opacity 0.8s ease;
+      transition: transform 1.05s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.7s ease 0.3s;
     }
 
-    #gate.open { opacity: 0; pointer-events: none; }
+    #gate::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 56px;
+      background: linear-gradient(to bottom, transparent, rgba(176, 150, 110, 0.18));
+      pointer-events: none;
+    }
+
+    #gate.open {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    body.opened main { animation: settleIn 1.1s ease both; }
+    @keyframes settleIn {
+      from { transform: translateY(16px); }
+      to   { transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #gate { transition: opacity 0.4s ease; transform: none; }
+      #gate.open { transform: none; }
+      body.opened main { animation: none; }
+    }
 
     .gate-eyebrow {
       font-size: 0.72rem;
@@ -1480,8 +1507,9 @@
     function openGate() {
       if (!gate || gate.classList.contains('open')) return;
       gate.classList.add('open');
+      document.body.classList.add('opened');
       document.body.style.overflow = '';
-      setTimeout(() => gate.remove(), 900);
+      setTimeout(() => gate.remove(), 1400);
     }
 
     if (gate) document.body.style.overflow = 'hidden';
