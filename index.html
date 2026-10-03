@@ -24,7 +24,7 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
 
     body {
       font-family: 'Montserrat', sans-serif;
@@ -234,11 +234,11 @@
     .story {
       max-width: 720px;
       margin: 0 auto;
-      padding: 2rem 1.5rem 6rem;
+      padding: 0 1.5rem 6rem;
       text-align: center;
     }
 
-    .story-eyebrow { margin-bottom: 5rem; }
+    .story-eyebrow { margin-bottom: 3.5rem; }
 
     .chapter-dot {
       display: block;
@@ -278,6 +278,7 @@
       width: min(480px, 88vw);
       aspect-ratio: 769 / 1024;
       margin: 0 auto 3rem;
+      overflow: clip;
     }
     .split-photo .half {
       position: absolute;
@@ -506,6 +507,7 @@
   </main>
 
   <section class="story" id="story">
+    <div class="connector reveal"></div>
     <p class="eyebrow story-eyebrow reveal" id="story-eyebrow">Our Story</p>
 
     <div class="chapter">
