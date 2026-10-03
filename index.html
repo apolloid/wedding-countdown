@@ -11,7 +11,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23b0966e'><path d='M12 21s-7.5-4.9-10-9.3C.4 8.6 2 5 5.5 5c2 0 3.4 1.1 4.3 2.5L12 9l2.2-1.5C15.1 6.1 16.5 5 18.5 5 22 5 23.6 8.6 22 11.7 19.5 16.1 12 21 12 21z'/></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Noto+Serif+Thai:wght@300;400&family=Prompt:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #faf8f4;
@@ -147,6 +147,46 @@
       color: var(--accent);
     }
 
+    .lang {
+      position: fixed;
+      top: 30px;
+      right: 34px;
+      z-index: 10;
+      display: flex;
+      gap: 0.9rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+    }
+
+    .lang button {
+      background: none;
+      border: none;
+      border-bottom: 1px solid transparent;
+      padding: 0.2rem 0;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: inherit;
+      letter-spacing: inherit;
+      color: var(--muted);
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    .lang button:hover { color: var(--text); }
+    .lang button.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    body[data-lang="th"] .eyebrow,
+    body[data-lang="th"] .unit .label,
+    body[data-lang="th"] .lang {
+      font-family: 'Prompt', sans-serif;
+      letter-spacing: 0.12em;
+    }
+
+    body[data-lang="th"] .date-line,
+    body[data-lang="th"] .message {
+      font-family: 'Noto Serif Thai', 'Cormorant Garamond', serif;
+      font-style: normal;
+    }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -155,17 +195,22 @@
 </head>
 <body>
   <div class="frame"></div>
+  <nav class="lang">
+    <button type="button" data-lang-btn="en" class="active">EN</button>
+    <button type="button" data-lang-btn="th">ไทย</button>
+    <button type="button" data-lang-btn="id">ID</button>
+  </nav>
   <main>
-    <p class="eyebrow">We're getting married</p>
+    <p class="eyebrow" id="eyebrow">We're getting married</p>
     <h1 class="names">Adi <span class="amp">&amp;</span> Natthawipa</h1>
-    <p class="date-line">Sunday, the Twenty-Ninth of November, MMXXVI</p>
+    <p class="date-line" id="date-line">Sunday, the Twenty-Ninth of November, MMXXVI</p>
     <div class="divider"></div>
 
     <div class="countdown" id="countdown">
-      <div class="unit"><div class="num" id="days">0</div><div class="label">Days</div></div>
-      <div class="unit"><div class="num" id="hours">0</div><div class="label">Hours</div></div>
-      <div class="unit"><div class="num" id="minutes">0</div><div class="label">Minutes</div></div>
-      <div class="unit"><div class="num" id="seconds">0</div><div class="label">Seconds</div></div>
+      <div class="unit"><div class="num" id="days">0</div><div class="label" id="lbl-days">Days</div></div>
+      <div class="unit"><div class="num" id="hours">0</div><div class="label" id="lbl-hours">Hours</div></div>
+      <div class="unit"><div class="num" id="minutes">0</div><div class="label" id="lbl-minutes">Minutes</div></div>
+      <div class="unit"><div class="num" id="seconds">0</div><div class="label" id="lbl-seconds">Seconds</div></div>
     </div>
 
     <p class="married" id="married">Just Married</p>
@@ -175,6 +220,55 @@
   <script>
     // Wedding date — edit here if the date or time changes (local time)
     const WEDDING_DATE = new Date('2026-11-29T00:00:00');
+
+    const I18N = {
+      en: {
+        eyebrow: "We're getting married",
+        dateLine: 'Sunday, the Twenty-Ninth of November, MMXXVI',
+        days: 'Days', hours: 'Hours', minutes: 'Minutes', seconds: 'Seconds',
+        message: 'until we say \u201cI do\u201d',
+        married: 'Just Married',
+      },
+      th: {
+        eyebrow: 'เรากำลังจะแต่งงานกัน',
+        dateLine: 'วันอาทิตย์ที่ ๒๙ พฤศจิกายน พ.ศ. ๒๕๖๙',
+        days: 'วัน', hours: 'ชั่วโมง', minutes: 'นาที', seconds: 'วินาที',
+        message: 'สู่วันที่เราจะให้คำสัญญา',
+        married: 'เราแต่งงานกันแล้ว',
+      },
+      id: {
+        eyebrow: 'Kami akan menikah',
+        dateLine: 'Minggu, 29 November 2026',
+        days: 'Hari', hours: 'Jam', minutes: 'Menit', seconds: 'Detik',
+        message: 'menuju hari kita mengucap janji suci',
+        married: 'Resmi Menikah',
+      },
+    };
+
+    function setLang(lang) {
+      const t = I18N[lang] || I18N.en;
+      document.documentElement.lang = lang;
+      document.body.dataset.lang = lang;
+      document.title = `Adi & Natthawipa — ${t.eyebrow}`;
+      document.getElementById('eyebrow').textContent = t.eyebrow;
+      document.getElementById('date-line').textContent = t.dateLine;
+      document.getElementById('lbl-days').textContent = t.days;
+      document.getElementById('lbl-hours').textContent = t.hours;
+      document.getElementById('lbl-minutes').textContent = t.minutes;
+      document.getElementById('lbl-seconds').textContent = t.seconds;
+      document.getElementById('message').textContent = t.message;
+      document.getElementById('married').textContent = t.married;
+      document.querySelectorAll('[data-lang-btn]').forEach(b =>
+        b.classList.toggle('active', b.dataset.langBtn === lang));
+      try { localStorage.setItem('lang', lang); } catch (e) {}
+    }
+
+    const savedLang = (() => { try { return localStorage.getItem('lang'); } catch (e) { return null; } })();
+    const browserLang = (navigator.language || '').slice(0, 2);
+
+    document.querySelectorAll('[data-lang-btn]').forEach(b =>
+      b.addEventListener('click', () => setLang(b.dataset.langBtn)));
+    setLang(savedLang || (I18N[browserLang] ? browserLang : 'en'));
 
     const els = {
       days: document.getElementById('days'),
