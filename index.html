@@ -173,7 +173,7 @@
       position: fixed;
       top: 30px;
       right: 34px;
-      z-index: 31;
+      z-index: 61;
       display: flex;
       gap: 0.9rem;
       font-size: 0.68rem;
@@ -232,6 +232,87 @@
 
     @media (prefers-reduced-motion: reduce) {
       .m-bars rect { animation: none; }
+    }
+
+    /* --- invitation gate --- */
+    #gate {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: opacity 0.8s ease;
+    }
+
+    #gate.open { opacity: 0; pointer-events: none; }
+
+    .gate-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .gate-names {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3rem, 11vw, 4.6rem);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .gate-names span { color: var(--accent); }
+
+    .gate-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 2.4rem;
+    }
+
+    .gate-btn {
+      background: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.9rem 2.4rem;
+      font-family: inherit;
+      font-size: 0.72rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--accent);
+      cursor: pointer;
+      animation: gatePulse 2.4s ease-in-out infinite;
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    .gate-btn:hover { color: var(--text); border-color: var(--muted); }
+
+    @keyframes gatePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(176, 150, 110, 0.25); }
+      50% { box-shadow: 0 0 0 10px rgba(176, 150, 110, 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gate-btn { animation: none; }
+    }
+
+    body[data-lang="th"] .gate-eyebrow,
+    body[data-lang="th"] .gate-btn {
+      font-family: 'Prompt', sans-serif;
+      letter-spacing: 0.12em;
+    }
+
+    body[data-lang="th"] .gate-names { font-family: 'Cormorant Garamond', serif; }
+
+    body[data-lang="th"] .gate-date {
+      font-family: 'Noto Serif Thai', serif;
+      font-style: normal;
     }
 
     body[data-lang="th"] .eyebrow,
@@ -698,6 +779,15 @@
 </head>
 <body>
   <div class="frame"></div>
+  <div id="gate">
+    <div class="gate-inner">
+      <p class="gate-eyebrow" id="gate-eyebrow">The wedding of</p>
+      <h1 class="gate-names">Adi <span>&amp;</span> Natthawipa</h1>
+      <p class="gate-date" id="gate-date">Sunday, 29 November 2026</p>
+      <button class="gate-btn" id="gate-btn" type="button"
+        onclick="this.closest('#gate').classList.add('open')">Open Invitation</button>
+    </div>
+  </div>
   <nav class="lang">
     <button type="button" data-lang-btn="en" class="active">EN</button>
     <button type="button" data-lang-btn="th">ไทย</button>
@@ -835,6 +925,8 @@
         dateLine: 'Sunday, 29 November 2026',
         days: 'Days', hours: 'Hours', minutes: 'Minutes', seconds: 'Seconds',
         message: 'until we say <span class="i-do">\u201cI do\u201d</span>',
+        gateEyebrow: 'The wedding of',
+        gateBtn: 'Open Invitation',
         married: 'Just Married',
         scrollHint: 'scroll — our story',
         storyEyebrow: 'Our Story',
@@ -856,6 +948,8 @@
         dateLine: 'วันอาทิตย์ที่ 29 พฤศจิกายน พ.ศ. 2569',
         days: 'วัน', hours: 'ชั่วโมง', minutes: 'นาที', seconds: 'วินาที',
         message: 'สู่วันที่เราจะให้<span class="i-do">คำสัญญา</span>',
+        gateEyebrow: 'งานแต่งงานของ',
+        gateBtn: 'เปิดคำเชิญ',
         married: 'เราแต่งงานกันแล้ว',
         scrollHint: 'เลื่อนลง — เรื่องราวของเรา',
         storyEyebrow: 'เรื่องราวของเรา',
@@ -877,6 +971,8 @@
         dateLine: 'Minggu, 29 November 2026',
         days: 'Hari', hours: 'Jam', minutes: 'Menit', seconds: 'Detik',
         message: 'menuju hari kita mengucap <span class="i-do">janji suci</span>',
+        gateEyebrow: 'Pernikahan',
+        gateBtn: 'Buka Undangan',
         married: 'Resmi Menikah',
         scrollHint: 'gulir — kisah kami',
         storyEyebrow: 'Kisah Kami',
@@ -991,6 +1087,9 @@
       document.getElementById('lbl-minutes').textContent = t.minutes;
       document.getElementById('lbl-seconds').textContent = t.seconds;
       document.getElementById('message').innerHTML = t.message;
+      document.getElementById('gate-eyebrow').textContent = t.gateEyebrow;
+      document.getElementById('gate-date').textContent = t.dateLine;
+      document.getElementById('gate-btn').textContent = t.gateBtn;
       document.getElementById('married').textContent = t.married;
       document.getElementById('scroll-hint').textContent = t.scrollHint;
       document.getElementById('story-eyebrow').textContent = t.storyEyebrow;
@@ -1049,12 +1148,28 @@
     tick();
     setInterval(tick, 1000);
 
-    // Background music — try true autoplay first (allowed for some visitors);
-    // otherwise start on the visitor's first gesture (scroll/tap/key).
-    // The button is only needed to pause/resume.
+    // Background music — browsers block autoplay with sound before any user
+    // gesture, so the invitation gate's tap doubles as that gesture: music
+    // starts the moment the guest opens the invitation. If the browser does
+    // allow autoplay, the gate fades away by itself.
     const bgm = document.getElementById('bgm');
     const musicBtn = document.getElementById('music-btn');
+    const gate = document.getElementById('gate');
     let wantMusic = true;
+
+    function openGate() {
+      if (!gate || gate.classList.contains('open')) return;
+      gate.classList.add('open');
+      document.body.style.overflow = '';
+      setTimeout(() => gate.remove(), 900);
+    }
+
+    if (gate) document.body.style.overflow = 'hidden';
+    document.getElementById('gate-btn').addEventListener('click', () => {
+      wantMusic = true;
+      applyMusic();
+      openGate();
+    });
 
     function fadeInMusic() {
       bgm.volume = 0;
@@ -1070,6 +1185,7 @@
         bgm.play().then(() => {
           musicBtn.classList.add('playing');
           fadeInMusic();
+          openGate();
         }).catch(() => {});
       } else if (!wantMusic && !bgm.paused) {
         bgm.pause();
@@ -1080,6 +1196,7 @@
     applyMusic();
     ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(ev =>
       window.addEventListener(ev, e => {
+        if (gate && !gate.classList.contains('open')) return;
         if (e.target && e.target.closest && e.target.closest('#music-btn')) return;
         applyMusic();
       }, { once: true, passive: true }));
