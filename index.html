@@ -334,7 +334,7 @@
       text-transform: uppercase;
       color: var(--accent);
       cursor: pointer;
-      animation: gatePulse 2.4s ease-in-out infinite;
+      animation: gateIn 0.8s ease 0.8s forwards, gatePulse 2.4s ease-in-out 1.8s infinite;
       transition: color 0.3s, border-color 0.3s;
     }
 
@@ -346,7 +346,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .gate-btn { animation: none; }
+      .gate-btn { animation: none; opacity: 1; transform: none; }
     }
 
     body[data-lang="th"] .gate-eyebrow,
