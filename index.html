@@ -393,11 +393,11 @@
       overflow: visible;
     }
 
-    .route-cover {
+    .route-mask-anim {
       stroke-dasharray: 100;
       stroke-dashoffset: 0;
     }
-    .photo-adv.visible .route-cover {
+    .photo-adv.visible .route-mask-anim {
       animation: routeDraw 6s linear 0.15s infinite;
     }
 
@@ -475,7 +475,7 @@
     @media (prefers-reduced-motion: reduce) {
       .photo-adv .pin { scale: 1; }
       .photo-adv .stamp { opacity: 0.85; scale: 1; }
-      .photo-adv .route-cover { stroke-dashoffset: 100; }
+      .photo-adv .route-mask-anim { stroke-dashoffset: 100; }
       .photo-adv .plane { display: none; }
     }
 
@@ -734,13 +734,17 @@
       <div class="photo-adv reveal" id="photo-adv">
         <img class="story-photo" src="story-adventures.jpeg" alt="Adi and Natthawipa's travels around Southeast Asia" />
         <svg class="route" viewBox="0 0 769 1024" preserveAspectRatio="none" aria-hidden="true">
-          <path class="route-cover" pathLength="100" fill="none" stroke="var(--bg)" stroke-width="8"
-            d="M240 315 C330 275 500 220 590 255 C650 310 620 410 565 470 C525 535 480 585 495 640 C505 700 555 715 605 735" />
-          <path class="route-line" pathLength="100" fill="none" stroke="var(--red)" stroke-width="3"
+          <defs>
+            <mask id="route-mask" maskUnits="userSpaceOnUse" x="-10%" y="-10%" width="120%" height="120%">
+              <path class="route-mask-anim" pathLength="100" fill="none" stroke="white" stroke-width="8"
+                d="M240 315 C330 275 500 220 590 255 C650 310 620 410 565 470 C525 535 480 585 495 640 C505 700 555 715 605 735" />
+            </mask>
+          </defs>
+          <path class="route-line" mask="url(#route-mask)" pathLength="100" fill="none" stroke="var(--red)" stroke-width="3"
             stroke-linecap="round" stroke-dasharray="0.1 6"
             d="M240 315 C330 275 500 220 590 255 C650 310 620 410 565 470 C525 535 480 585 495 640 C505 700 555 715 605 735" />
           <g class="plane">
-            <path d="M-2 -6 L14 0 L-2 6 L2 0 Z" fill="var(--red)" />
+            <path d="M-4 -12 L28 0 L-4 12 L4 0 Z" fill="var(--red)" />
             <animateMotion id="plane-anim" dur="3s" begin="indefinite" fill="freeze" rotate="auto" repeatCount="indefinite"
               path="M240 315 C330 275 500 220 590 255 C650 310 620 410 565 470 C525 535 480 585 495 640 C505 700 555 715 605 735" />
           </g>
