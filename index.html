@@ -150,6 +150,11 @@
       color: var(--muted);
     }
 
+    .i-do {
+      color: var(--red);
+      font-weight: 700;
+    }
+
     .message {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
@@ -675,7 +680,7 @@
     </div>
 
     <p class="married" id="married">Just Married</p>
-    <p class="message" id="message">until we say &ldquo;I do&rdquo;</p>
+    <p class="message" id="message">until we say <span class="i-do">&ldquo;I do&rdquo;</span></p>
 
     <a class="scroll-hint" href="#story"><span id="scroll-hint">scroll — our story</span></a>
   </main>
@@ -767,7 +772,10 @@
       <div class="chapter-head reveal">
         <span class="chapter-dot"></span>
         <p class="chapter-date" id="ch4-date">29 November 2026</p>
-        <h2 class="chapter-title" id="ch4-title">...we say &ldquo;I do&rdquo;</h2>
+        <h2 class="chapter-title" id="ch4-title">...we say <span class="i-do">&ldquo;I do&rdquo;</span></h2>
+      </div>
+      <div class="reveal">
+        <img class="story-photo" src="story-wedding.jpeg" alt="Adi and Natthawipa on their wedding day" />
       </div>
       <a class="back-top reveal" href="#" id="back-top">back to the countdown</a>
     </div>
@@ -782,7 +790,7 @@
         eyebrow: "We're getting married",
         dateLine: 'Sunday, 29 November 2026',
         days: 'Days', hours: 'Hours', minutes: 'Minutes', seconds: 'Seconds',
-        message: 'until we say \u201cI do\u201d',
+        message: 'until we say <span class="i-do">\u201cI do\u201d</span>',
         married: 'Just Married',
         scrollHint: 'scroll — our story',
         storyEyebrow: 'Our Story',
@@ -796,14 +804,14 @@
         ch3Title: 'Adventures together',
         ch3Caption: 'Bangkok, Penang, Jakarta, Bandung, Singapore — collecting miles and memories.',
         ch4Date: '29 November 2026',
-        ch4Title: '...we say \u201cI do\u201d',
+        ch4Title: '...we say <span class="i-do">\u201cI do\u201d</span>',
         backTop: 'back to the countdown',
       },
       th: {
         eyebrow: 'เรากำลังจะแต่งงานกัน',
         dateLine: 'วันอาทิตย์ที่ 29 พฤศจิกายน พ.ศ. 2569',
         days: 'วัน', hours: 'ชั่วโมง', minutes: 'นาที', seconds: 'วินาที',
-        message: 'สู่วันที่เราจะให้คำสัญญา',
+        message: 'สู่วันที่เราจะให้<span class="i-do">คำสัญญา</span>',
         married: 'เราแต่งงานกันแล้ว',
         scrollHint: 'เลื่อนลง — เรื่องราวของเรา',
         storyEyebrow: 'เรื่องราวของเรา',
@@ -817,14 +825,14 @@
         ch3Title: 'การผจญภัยของเราสองคน',
         ch3Caption: 'กรุงเทพฯ ปีนัง จาการ์ตา บันดุง สิงคโปร์ — เก็บไมล์และความทรงจำ',
         ch4Date: '29 พฤศจิกายน พ.ศ. 2569',
-        ch4Title: '...เราจะให้คำสัญญา',
+        ch4Title: '...เราจะให้<span class="i-do">คำสัญญา</span>',
         backTop: 'กลับไปที่การนับถอยหลัง',
       },
       id: {
         eyebrow: 'Kami akan menikah',
         dateLine: 'Minggu, 29 November 2026',
         days: 'Hari', hours: 'Jam', minutes: 'Menit', seconds: 'Detik',
-        message: 'menuju hari kita mengucap janji suci',
+        message: 'menuju hari kita mengucap <span class="i-do">janji suci</span>',
         married: 'Resmi Menikah',
         scrollHint: 'gulir — kisah kami',
         storyEyebrow: 'Kisah Kami',
@@ -838,7 +846,7 @@
         ch3Title: 'Petualangan kita berdua',
         ch3Caption: 'Bangkok, Penang, Jakarta, Bandung, Singapura — mengumpulkan mil dan kenangan.',
         ch4Date: '29 November 2026',
-        ch4Title: '...kita ucapkan janji suci',
+        ch4Title: '...kita ucapkan <span class="i-do">janji suci</span>',
         backTop: 'kembali ke hitung mundur',
       },
     };
@@ -938,7 +946,7 @@
       document.getElementById('lbl-hours').textContent = t.hours;
       document.getElementById('lbl-minutes').textContent = t.minutes;
       document.getElementById('lbl-seconds').textContent = t.seconds;
-      document.getElementById('message').textContent = t.message;
+      document.getElementById('message').innerHTML = t.message;
       document.getElementById('married').textContent = t.married;
       document.getElementById('scroll-hint').textContent = t.scrollHint;
       document.getElementById('story-eyebrow').textContent = t.storyEyebrow;
@@ -952,7 +960,7 @@
       document.getElementById('ch3-title').textContent = t.ch3Title;
       document.getElementById('ch3-caption').textContent = t.ch3Caption;
       document.getElementById('ch4-date').textContent = t.ch4Date;
-      document.getElementById('ch4-title').textContent = t.ch4Title;
+      document.getElementById('ch4-title').innerHTML = t.ch4Title;
       document.getElementById('back-top').textContent = t.backTop;
       renderChat(lang);
       document.querySelectorAll('[data-lang-btn]').forEach(b =>
