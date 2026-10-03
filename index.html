@@ -196,6 +196,44 @@
     .lang button:hover { color: var(--text); }
     .lang button.active { color: var(--accent); border-bottom-color: var(--accent); }
 
+    #music-btn {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 31;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px rgba(61, 58, 52, 0.14);
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    #music-btn svg { width: 20px; height: 20px; }
+    #music-btn .m-bars { display: none; }
+    #music-btn.playing { color: var(--red); border-color: rgba(176, 74, 61, 0.45); }
+    #music-btn.playing .m-note { display: none; }
+    #music-btn.playing .m-bars { display: block; }
+
+    #music-btn.playing .m-bars rect {
+      transform-box: fill-box;
+      transform-origin: bottom;
+      animation: eq 0.9s ease-in-out infinite alternate;
+    }
+    .m-bars .b2 { animation-delay: 0.2s; }
+    .m-bars .b3 { animation-delay: 0.45s; }
+    @keyframes eq { from { transform: scaleY(0.35); } to { transform: scaleY(1); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .m-bars rect { animation: none; }
+    }
+
     body[data-lang="th"] .eyebrow,
     body[data-lang="th"] .unit .label,
     body[data-lang="th"] .lang {
@@ -781,6 +819,12 @@
     </div>
   </section>
 
+  <audio id="bgm" src="better-together.mp3" loop preload="auto"></audio>
+  <button id="music-btn" type="button" aria-label="Toggle music">
+    <svg class="m-note" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    <svg class="m-bars" viewBox="0 0 24 24" fill="currentColor"><rect class="b1" x="4" y="10" width="3" height="10" rx="1"/><rect class="b2" x="10.5" y="5" width="3" height="15" rx="1"/><rect class="b3" x="17" y="8" width="3" height="12" rx="1"/></svg>
+  </button>
+
   <script>
     // Wedding date — edit here if the date or time changes (UTC+7 = Thailand/WIB)
     const WEDDING_DATE = new Date('2026-11-29T09:00:00+07:00');
@@ -1004,6 +1048,44 @@
 
     tick();
     setInterval(tick, 1000);
+
+    // Background music — browsers block autoplay with sound, so playback
+    // starts on the visitor's first gesture (scroll/tap/key). The button toggles.
+    const bgm = document.getElementById('bgm');
+    const musicBtn = document.getElementById('music-btn');
+    let wantMusic = true;
+
+    function fadeInMusic() {
+      bgm.volume = 0;
+      const target = 0.55;
+      const iv = setInterval(() => {
+        bgm.volume = Math.min(target, bgm.volume + target / 30);
+        if (bgm.volume >= target || bgm.paused) clearInterval(iv);
+      }, 50);
+    }
+
+    function applyMusic() {
+      if (wantMusic && bgm.paused) {
+        bgm.play().then(() => {
+          musicBtn.classList.add('playing');
+          fadeInMusic();
+        }).catch(() => {});
+      } else if (!wantMusic && !bgm.paused) {
+        bgm.pause();
+        musicBtn.classList.remove('playing');
+      }
+    }
+
+    ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(ev =>
+      window.addEventListener(ev, e => {
+        if (e.target && e.target.closest && e.target.closest('#music-btn')) return;
+        applyMusic();
+      }, { once: true, passive: true }));
+
+    musicBtn.addEventListener('click', () => {
+      wantMusic = bgm.paused;
+      applyMusic();
+    });
   </script>
 </body>
 </html>
