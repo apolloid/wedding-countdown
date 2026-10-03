@@ -418,6 +418,23 @@
       border-bottom-left-radius: 4px;
     }
 
+    .msg.typing { padding: 0.6rem 0.9rem; }
+    .msg.typing .dots {
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .msg.typing .dots i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      opacity: 0.35;
+      animation: typingDot 1s ease-in-out infinite;
+    }
+    .msg.typing .dots i:nth-child(2) { animation-delay: 0.15s; }
+    .msg.typing .dots i:nth-child(3) { animation-delay: 0.3s; }
+
     .back-top {
       display: inline-block;
       margin-top: 0.5rem;
@@ -466,6 +483,12 @@
       .reveal { transition: none; opacity: 1; transform: none; }
       .connector.reveal { transform: none; }
       .scroll-hint::after { animation: none; }
+      .msg.typing .dots i { animation: none; }
+    }
+
+    @keyframes typingDot {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+      30%           { transform: translateY(-3px); opacity: 0.85; }
     }
 
     @keyframes bob {
@@ -680,17 +703,46 @@
       }
     }
 
+    // Chat typing effect — queue messages, show "..." then the bubble
+    const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const msgQueue = [];
+    let msgProcessing = false;
+    const wait = ms => new Promise(r => setTimeout(r, ms));
+
+    async function processQueue() {
+      if (msgProcessing) return;
+      msgProcessing = true;
+      while (msgQueue.length) {
+        const el = msgQueue.shift();
+        const fast = msgQueue.length > 2;
+        const t = document.createElement('div');
+        t.className = `msg typing ${el.classList.contains('adi') ? 'adi' : 'nat'} reveal`;
+        t.innerHTML = '<span class="dots"><i></i><i></i><i></i></span>';
+        el.parentNode.insertBefore(t, el);
+        requestAnimationFrame(() => t.classList.add('visible'));
+        await wait(fast ? 350 : 700);
+        t.remove();
+        el.classList.add('visible');
+        await wait(fast ? 120 : 220);
+      }
+      msgProcessing = false;
+    }
+
     const io = new IntersectionObserver(entries => {
       for (const e of entries) {
-        if (e.isIntersecting) {
+        if (!e.isIntersecting) continue;
+        io.unobserve(e.target);
+        if (e.target.classList.contains('msg') && !prefersReduced) {
+          msgQueue.push(e.target);
+          processQueue();
+        } else {
           e.target.classList.add('visible');
-          io.unobserve(e.target);
         }
       }
     }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
 
     function observeReveals() {
-      document.querySelectorAll('.reveal:not(.visible)').forEach(el => io.observe(el));
+      document.querySelectorAll('.reveal:not(.visible):not(.typing)').forEach(el => io.observe(el));
     }
 
     // Split photo — halves merge as it scrolls up through the viewport
