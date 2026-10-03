@@ -270,6 +270,38 @@
       margin: 0 auto 3rem;
     }
 
+    /* --- split photo: halves merge on scroll --- */
+    .split-photo {
+      position: relative;
+      width: min(480px, 88vw);
+      aspect-ratio: 769 / 1024;
+      margin: 0 auto 3rem;
+    }
+    .split-photo .half {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      overflow: hidden;
+      will-change: transform;
+    }
+    .split-photo .half.left {
+      left: 0;
+      width: calc(50% + 0.5px);
+    }
+    .split-photo .half.right { right: 0; }
+    .split-photo .half img {
+      position: absolute;
+      top: 0;
+      display: block;
+      width: 200%;
+      max-width: none;
+      height: 100%;
+      object-fit: cover;
+    }
+    .split-photo .half.left img { left: 0; }
+    .split-photo .half.right img { right: 0; }
+
     .chapter-caption {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
@@ -480,7 +512,10 @@
         <p class="chapter-date" id="ch1-date">2021</p>
         <h2 class="chapter-title" id="ch1-title">We met online</h2>
       </div>
-      <img class="story-photo reveal" src="story-chat.jpeg" alt="Adi and Natthawipa chatting long-distance" />
+      <div class="split-photo" id="split-photo">
+        <div class="half left"><img src="story-chat.jpeg" alt="" aria-hidden="true" /></div>
+        <div class="half right"><img src="story-chat.jpeg" alt="Adi and Natthawipa chatting long-distance" /></div>
+      </div>
       <div class="chat">
         <div class="chat-header">
           <div class="chat-avatar">N</div>
@@ -631,6 +666,35 @@
 
     function observeReveals() {
       document.querySelectorAll('.reveal:not(.visible)').forEach(el => io.observe(el));
+    }
+
+    // Split photo — halves merge as it scrolls up through the viewport
+    const splitPhoto = document.getElementById('split-photo');
+    const halfL = splitPhoto?.querySelector('.half.left');
+    const halfR = splitPhoto?.querySelector('.half.right');
+
+    function updateSplit() {
+      const r = splitPhoto.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const p = Math.min(1, Math.max(0, (vh * 0.9 - r.top) / (vh * 0.45)));
+      const e = p * p * (3 - 2 * p);
+      const off = (1 - e) * 45;
+      halfL.style.transform = `translateX(${-off}%)`;
+      halfR.style.transform = `translateX(${off}%)`;
+      splitPhoto.style.opacity = 0.15 + 0.85 * e;
+    }
+
+    if (splitPhoto && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let splitTick = false;
+      const queueSplit = () => {
+        if (!splitTick) {
+          requestAnimationFrame(() => { updateSplit(); splitTick = false; });
+          splitTick = true;
+        }
+      };
+      window.addEventListener('scroll', queueSplit, { passive: true });
+      window.addEventListener('resize', queueSplit);
+      updateSplit();
     }
 
     function setLang(lang) {
