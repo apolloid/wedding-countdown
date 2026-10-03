@@ -542,8 +542,20 @@
     <div class="chapter">
       <div class="chapter-head reveal">
         <span class="chapter-dot"></span>
-        <p class="chapter-date" id="ch3-date">29 November 2026</p>
-        <h2 class="chapter-title" id="ch3-title">...we say &ldquo;I do&rdquo;</h2>
+        <p class="chapter-date" id="ch3-date">2023 – 2026</p>
+        <h2 class="chapter-title" id="ch3-title">Adventures together</h2>
+      </div>
+      <img class="story-photo reveal" src="story-adventures.jpeg" alt="Adi and Natthawipa's travels around Southeast Asia" />
+      <p class="chapter-caption reveal" id="ch3-caption">Bangkok, Penang, Jakarta, Bandung, Singapore — collecting miles and memories.</p>
+    </div>
+
+    <div class="connector reveal"></div>
+
+    <div class="chapter">
+      <div class="chapter-head reveal">
+        <span class="chapter-dot"></span>
+        <p class="chapter-date" id="ch4-date">29 November 2026</p>
+        <h2 class="chapter-title" id="ch4-title">...we say &ldquo;I do&rdquo;</h2>
       </div>
       <a class="back-top reveal" href="#" id="back-top">back to the countdown</a>
     </div>
@@ -568,8 +580,11 @@
         ch2Date: '20 May 2023',
         ch2Title: 'The first hello — Singapore',
         ch2Caption: 'Shake Shack, Jewel Changi — the burgers tasted better that day.',
-        ch3Date: '29 November 2026',
-        ch3Title: '...we say \u201cI do\u201d',
+        ch3Date: '2023 – 2026',
+        ch3Title: 'Adventures together',
+        ch3Caption: 'Bangkok, Penang, Jakarta, Bandung, Singapore — collecting miles and memories.',
+        ch4Date: '29 November 2026',
+        ch4Title: '...we say \u201cI do\u201d',
         backTop: 'back to the countdown',
       },
       th: {
@@ -586,8 +601,11 @@
         ch2Date: '20 พฤษภาคม พ.ศ. 2566',
         ch2Title: 'พบกันครั้งแรก — สิงคโปร์',
         ch2Caption: 'Shake Shack, Jewel Changi — เบอร์เกอร์วันนั้นอร่อยเป็นพิเศษ',
-        ch3Date: '29 พฤศจิกายน พ.ศ. 2569',
-        ch3Title: '...เราจะให้คำสัญญา',
+        ch3Date: '2566 – 2569',
+        ch3Title: 'การผจญภัยของเราสองคน',
+        ch3Caption: 'กรุงเทพฯ ปีนัง จาการ์ตา บันดุง สิงคโปร์ — เก็บไมล์และความทรงจำ',
+        ch4Date: '29 พฤศจิกายน พ.ศ. 2569',
+        ch4Title: '...เราจะให้คำสัญญา',
         backTop: 'กลับไปที่การนับถอยหลัง',
       },
       id: {
@@ -604,8 +622,11 @@
         ch2Date: '20 Mei 2023',
         ch2Title: 'Tatap muka pertama — Singapura',
         ch2Caption: 'Shake Shack, Jewel Changi — burgernya terasa lebih enak hari itu.',
-        ch3Date: '29 November 2026',
-        ch3Title: '...kita ucapkan janji suci',
+        ch3Date: '2023 – 2026',
+        ch3Title: 'Petualangan kita berdua',
+        ch3Caption: 'Bangkok, Penang, Jakarta, Bandung, Singapura — mengumpulkan mil dan kenangan.',
+        ch4Date: '29 November 2026',
+        ch4Title: '...kita ucapkan janji suci',
         backTop: 'kembali ke hitung mundur',
       },
     };
@@ -720,6 +741,9 @@
       document.getElementById('ch2-caption').textContent = t.ch2Caption;
       document.getElementById('ch3-date').textContent = t.ch3Date;
       document.getElementById('ch3-title').textContent = t.ch3Title;
+      document.getElementById('ch3-caption').textContent = t.ch3Caption;
+      document.getElementById('ch4-date').textContent = t.ch4Date;
+      document.getElementById('ch4-title').textContent = t.ch4Title;
       document.getElementById('back-top').textContent = t.backTop;
       renderChat(lang);
       document.querySelectorAll('[data-lang-btn]').forEach(b =>
