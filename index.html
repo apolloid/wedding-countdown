@@ -1049,8 +1049,9 @@
     tick();
     setInterval(tick, 1000);
 
-    // Background music — browsers block autoplay with sound, so playback
-    // starts on the visitor's first gesture (scroll/tap/key). The button toggles.
+    // Background music — try true autoplay first (allowed for some visitors);
+    // otherwise start on the visitor's first gesture (scroll/tap/key).
+    // The button is only needed to pause/resume.
     const bgm = document.getElementById('bgm');
     const musicBtn = document.getElementById('music-btn');
     let wantMusic = true;
@@ -1076,6 +1077,7 @@
       }
     }
 
+    applyMusic();
     ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(ev =>
       window.addEventListener(ev, e => {
         if (e.target && e.target.closest && e.target.closest('#music-btn')) return;
