@@ -614,6 +614,149 @@
       .photo-adv .plane { display: none; }
     }
 
+    /* --- guests-only details (code-gated) --- */
+    .guest-lock {
+      width: min(480px, 88vw);
+      margin: 0 auto;
+      text-align: center;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 2.2rem 1.4rem;
+      background: rgba(255, 255, 255, 0.35);
+    }
+    .guest-lock > svg {
+      width: 26px;
+      height: 26px;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+    .guest-hint {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+    .guest-row {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: center;
+      align-items: center;
+    }
+    #guest-code {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.22em;
+      text-align: center;
+      width: 9.5rem;
+      padding: 0.7rem 0.9rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--bg);
+      color: var(--text);
+    }
+    #guest-code:focus { outline: 1px solid var(--accent); }
+    #guest-unlock {
+      background: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.7rem 1.4rem;
+      font-family: inherit;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      cursor: pointer;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    #guest-unlock:hover { color: var(--text); border-color: var(--muted); }
+    .guest-err {
+      color: var(--red);
+      font-size: 0.75rem;
+      margin-top: 0.9rem;
+    }
+    .guest-lock.shake { animation: gshake 0.4s ease; }
+    @keyframes gshake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    .guest-details {
+      width: min(480px, 88vw);
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .guest-details.shown { opacity: 1; transform: none; }
+
+    .venue-card { text-align: center; margin-bottom: 2.2rem; }
+    .venue-label, .program-title {
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .venue-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0.3rem 0 0.4rem;
+    }
+    .venue-card p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+    #venue-map {
+      display: inline-block;
+      margin-top: 0.9rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.3rem;
+    }
+
+    .program-title { text-align: center; margin-bottom: 0.2rem; }
+    .prog-row {
+      display: flex;
+      gap: 1.1rem;
+      align-items: baseline;
+      padding: 0.75rem 0.2rem;
+      border-bottom: 1px dashed var(--line);
+    }
+    .prog-row:last-child { border-bottom: none; }
+    .prog-row time {
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      min-width: 3.2rem;
+    }
+    .prog-row span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.08rem;
+      color: var(--text);
+    }
+
+    body[data-lang="th"] .guest-hint,
+    body[data-lang="th"] .guest-err,
+    body[data-lang="th"] .venue-card h3,
+    body[data-lang="th"] .venue-card p,
+    body[data-lang="th"] .prog-row span {
+      font-family: 'Noto Serif Thai', serif;
+      font-style: normal;
+    }
+    body[data-lang="th"] #guest-unlock {
+      font-family: 'Prompt', sans-serif;
+      letter-spacing: 0.1em;
+    }
+
     .chapter-caption {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
@@ -918,6 +1061,34 @@
       </div>
       <a class="back-top reveal" href="#" id="back-top">back to the countdown</a>
     </div>
+
+    <div class="connector reveal"></div>
+
+    <div class="chapter">
+      <div class="chapter-head reveal">
+        <span class="chapter-dot"></span>
+        <h2 class="chapter-title" id="guests-title">For Our Guests</h2>
+      </div>
+      <div class="guest-lock reveal" id="guest-lock">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+        <p class="guest-hint" id="guests-hint">Enter the little code we shared with you</p>
+        <div class="guest-row">
+          <input id="guest-code" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" />
+          <button id="guest-unlock" type="button">Unlock</button>
+        </div>
+        <p class="guest-err" id="guest-err" hidden>Hmm, wrong code — try again</p>
+      </div>
+      <div class="guest-details" id="guest-details" hidden>
+        <div class="venue-card">
+          <p class="venue-label" id="venue-label">Venue</p>
+          <h3 id="venue-name">To be announced</h3>
+          <p id="venue-addr">Details coming soon</p>
+          <a id="venue-map" href="#" target="_blank" rel="noopener">Open in Maps</a>
+        </div>
+        <p class="program-title" id="program-title">Wedding Program</p>
+        <div class="program" id="program"></div>
+      </div>
+    </div>
   </section>
 
   <audio id="bgm" src="better-together.mp3" loop preload="auto"></audio>
@@ -955,6 +1126,13 @@
         ch4Date: '29 November 2026',
         ch4Title: '...we say <span class="i-do">\u201cI do\u201d</span>',
         backTop: 'back to the countdown',
+        guestsTitle: 'For Our Guests',
+        guestsHint: 'Enter the little code we shared with you',
+        guestsUnlock: 'Unlock',
+        guestsErr: 'Hmm, wrong code — try again',
+        venueLabel: 'Venue',
+        mapBtn: 'Open in Maps',
+        programTitle: 'Wedding Program',
       },
       th: {
         eyebrow: 'เรากำลังจะแต่งงานกัน',
@@ -980,6 +1158,13 @@
         ch4Date: '29 พฤศจิกายน พ.ศ. 2569',
         ch4Title: '...เราจะให้<span class="i-do">คำสัญญา</span>',
         backTop: 'กลับไปที่การนับถอยหลัง',
+        guestsTitle: 'สำหรับแขกของเรา',
+        guestsHint: 'ใส่รหัสเล็กๆ ที่เราส่งให้คุณ',
+        guestsUnlock: 'ปลดล็อก',
+        guestsErr: 'รหัสไม่ถูกต้อง ลองอีกครั้ง',
+        venueLabel: 'สถานที่',
+        mapBtn: 'เปิดในแผนที่',
+        programTitle: 'กำหนดการงานแต่ง',
       },
       id: {
         eyebrow: 'Kami akan menikah',
@@ -1005,6 +1190,13 @@
         ch4Date: '29 November 2026',
         ch4Title: '...kita ucapkan <span class="i-do">janji suci</span>',
         backTop: 'kembali ke hitung mundur',
+        guestsTitle: 'Untuk Tamu Kami',
+        guestsHint: 'Masukkan kode kecil yang kami bagikan',
+        guestsUnlock: 'Buka',
+        guestsErr: 'Hmm, kode salah — coba lagi',
+        venueLabel: 'Tempat',
+        mapBtn: 'Buka di Maps',
+        programTitle: 'Susunan Acara',
       },
     };
 
@@ -1111,9 +1303,87 @@
 
     let currentT = I18N.en;
 
+    // Guest area — venue + program live server-side (api/details.js) and are
+    // only returned when the guest code checks out. Nothing to sniff here.
+    const guestLock = document.getElementById('guest-lock');
+    const guestDetails = document.getElementById('guest-details');
+    const guestCode = document.getElementById('guest-code');
+    const guestErr = document.getElementById('guest-err');
+    let guestData = null;
+    let currentLang = 'en';
+
+    function renderGuestDetails() {
+      if (!guestData) return;
+      const lang = currentLang;
+      document.getElementById('venue-name').textContent =
+        guestData.venue.name[lang] || guestData.venue.name.en;
+      document.getElementById('venue-addr').textContent =
+        guestData.venue.addr[lang] || guestData.venue.addr.en;
+      const map = document.getElementById('venue-map');
+      map.href = guestData.venue.mapUrl || '#';
+      map.style.display = guestData.venue.mapUrl ? '' : 'none';
+      const el = document.getElementById('program');
+      el.innerHTML = '';
+      for (const row of guestData.program) {
+        const div = document.createElement('div');
+        div.className = 'prog-row';
+        const t = document.createElement('time');
+        t.textContent = row.time;
+        const s = document.createElement('span');
+        s.textContent = row[lang] || row.en;
+        div.appendChild(t);
+        div.appendChild(s);
+        el.appendChild(div);
+      }
+    }
+
+    function showGuestDetails() {
+      guestLock.hidden = true;
+      guestDetails.hidden = false;
+      requestAnimationFrame(() => guestDetails.classList.add('shown'));
+    }
+
+    async function fetchDetails(code, silent) {
+      try {
+        const r = await fetch('/api/details', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code }),
+        });
+        if (!r.ok) throw new Error('bad code');
+        guestData = await r.json();
+        try { sessionStorage.setItem('gdetails', JSON.stringify(guestData)); } catch (e) {}
+        showGuestDetails();
+        renderGuestDetails();
+      } catch (e) {
+        if (silent) return;
+        guestErr.hidden = false;
+        guestLock.classList.remove('shake');
+        void guestLock.offsetWidth;
+        guestLock.classList.add('shake');
+      }
+    }
+
+    function tryUnlock() {
+      const code = guestCode.value.trim();
+      if (code) fetchDetails(code, false);
+    }
+
+    document.getElementById('guest-unlock').addEventListener('click', tryUnlock);
+    guestCode.addEventListener('keydown', e => { if (e.key === 'Enter') tryUnlock(); });
+    try {
+      const cached = sessionStorage.getItem('gdetails');
+      if (cached) {
+        guestData = JSON.parse(cached);
+        showGuestDetails();
+        renderGuestDetails();
+      }
+    } catch (e) {}
+
     function setLang(lang) {
       const t = I18N[lang] || I18N.en;
       currentT = t;
+      currentLang = lang;
       document.documentElement.lang = lang;
       document.body.dataset.lang = lang;
       document.title = `Adi & Natthawipa — ${t.eyebrow}`;
@@ -1142,7 +1412,15 @@
       document.getElementById('ch4-date').textContent = t.ch4Date;
       document.getElementById('ch4-title').innerHTML = t.ch4Title;
       document.getElementById('back-top').textContent = t.backTop;
+      document.getElementById('guests-title').textContent = t.guestsTitle;
+      document.getElementById('guests-hint').textContent = t.guestsHint;
+      document.getElementById('guest-unlock').textContent = t.guestsUnlock;
+      document.getElementById('guest-err').textContent = t.guestsErr;
+      document.getElementById('venue-label').textContent = t.venueLabel;
+      document.getElementById('venue-map').textContent = t.mapBtn;
+      document.getElementById('program-title').textContent = t.programTitle;
       renderChat(lang);
+      renderGuestDetails();
       document.querySelectorAll('[data-lang-btn]').forEach(b =>
         b.classList.toggle('active', b.dataset.langBtn === lang));
       try { localStorage.setItem('lang', lang); } catch (e) {}
