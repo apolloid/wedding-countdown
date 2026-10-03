@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adi &amp; Natthawipa — Wedding Countdown</title>
+  <meta name="description" content="Countdown to the wedding of Adi & Natthawipa — November 29, 2026" />
+  <meta property="og:title" content="Adi & Natthawipa — Wedding Countdown" />
+  <meta property="og:description" content="Sunday, November 29, 2026 — we're getting married!" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23b0966e'><path d='M12 21s-7.5-4.9-10-9.3C.4 8.6 2 5 5.5 5c2 0 3.4 1.1 4.3 2.5L12 9l2.2-1.5C15.1 6.1 16.5 5 18.5 5 22 5 23.6 8.6 22 11.7 19.5 16.1 12 21 12 21z'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf8f4;
+      --text: #3d3a34;
+      --muted: #8a8175;
+      --accent: #b0966e;
+      --line: rgba(176, 150, 110, 0.35);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    /* subtle decorative corners */
+    .frame {
+      position: fixed;
+      inset: 18px;
+      border: 1px solid var(--line);
+      pointer-events: none;
+    }
+    .frame::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px solid var(--line);
+      opacity: 0.5;
+    }
+
+    main {
+      text-align: center;
+      padding: 4rem 1.5rem;
+      max-width: 720px;
+      width: 100%;
+      animation: fadeUp 1.4s ease both;
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+    }
+
+    .names {
+      font-family: 'Great Vibes', cursive;
+      font-weight: 400;
+      font-size: clamp(3rem, 10vw, 5.5rem);
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
+    }
+
+    .names .amp { color: var(--accent); }
+
+    .date-line {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.15rem, 3vw, 1.5rem);
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 3rem;
+    }
+
+    .divider {
+      width: 64px;
+      height: 1px;
+      background: var(--accent);
+      margin: 0 auto 3rem;
+      position: relative;
+    }
+    .divider::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 7px;
+      height: 7px;
+      background: var(--bg);
+      border: 1px solid var(--accent);
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: clamp(0.8rem, 3vw, 2.2rem);
+      margin-bottom: 3.2rem;
+    }
+
+    .unit {
+      min-width: clamp(64px, 17vw, 108px);
+      padding: 1.1rem 0.4rem 1rem;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .unit .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 8vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .unit .label {
+      margin-top: 0.55rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .message {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--muted);
+    }
+
+    .married {
+      display: none;
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.4rem, 8vw, 4rem);
+      color: var(--accent);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="frame"></div>
+  <main>
+    <p class="eyebrow">We're getting married</p>
+    <h1 class="names">Adi <span class="amp">&amp;</span> Natthawipa</h1>
+    <p class="date-line">Sunday, the Twenty-Ninth of November, MMXXVI</p>
+    <div class="divider"></div>
+
+    <div class="countdown" id="countdown">
+      <div class="unit"><div class="num" id="days">0</div><div class="label">Days</div></div>
+      <div class="unit"><div class="num" id="hours">0</div><div class="label">Hours</div></div>
+      <div class="unit"><div class="num" id="minutes">0</div><div class="label">Minutes</div></div>
+      <div class="unit"><div class="num" id="seconds">0</div><div class="label">Seconds</div></div>
+    </div>
+
+    <p class="married" id="married">Just Married</p>
+    <p class="message" id="message">until we say &ldquo;I do&rdquo;</p>
+  </main>
+
+  <script>
+    // Wedding date — edit here if the date or time changes (local time)
+    const WEDDING_DATE = new Date('2026-11-29T00:00:00');
+
+    const els = {
+      days: document.getElementById('days'),
+      hours: document.getElementById('hours'),
+      minutes: document.getElementById('minutes'),
+      seconds: document.getElementById('seconds'),
+      countdown: document.getElementById('countdown'),
+      married: document.getElementById('married'),
+      message: document.getElementById('message'),
+    };
+
+    function tick() {
+      const diff = WEDDING_DATE - new Date();
+
+      if (diff <= 0) {
+        els.countdown.style.display = 'none';
+        els.message.style.display = 'none';
+        els.married.style.display = 'block';
+        return;
+      }
+
+      els.days.textContent = Math.floor(diff / 864e5);
+      els.hours.textContent = String(Math.floor(diff / 36e5) % 24).padStart(2, '0');
+      els.minutes.textContent = String(Math.floor(diff / 6e4) % 60).padStart(2, '0');
+      els.seconds.textContent = String(Math.floor(diff / 1e3) % 60).padStart(2, '0');
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>
