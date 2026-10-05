@@ -5,9 +5,13 @@
 
 const DETAILS = {
   venue: {
-    name: { en: 'To be announced', th: 'จะแจ้งให้ทราบ', id: 'Akan diumumkan' },
-    addr: { en: 'Details coming soon', th: 'รายละเอียดเร็วๆ นี้', id: 'Detail menyusul' },
-    mapUrl: '',
+    name: { en: 'Wat Ku Yang', th: 'วัดคูยาง', id: 'Wat Ku Yang' },
+    addr: {
+      en: '51 Ratchadamnoen 1 Soi 2, Nai Mueang, Mueang Kamphaeng Phet, Kamphaeng Phet 62000, Thailand',
+      th: '51 ราชดำเนิน 1 ซอย 2 ตำบลในเมือง อำเภอเมืองกำแพงเพชร จังหวัดกำแพงเพชร 62000',
+      id: '51 Ratchadamnoen 1 Soi 2, Nai Mueang, Mueang Kamphaeng Phet, Kamphaeng Phet 62000, Thailand',
+    },
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Wat+Ku+Yang+Kamphaeng+Phet',
   },
   program: [
     { time: '09:00', en: 'Ceremony', th: 'พิธีมงคลสมรส', id: 'Pemberkatan' },
