@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Adi &amp; Natthawipa — Wedding Countdown</title>
-  <meta name="description" content="Countdown to the wedding of Adi & Natthawipa — November 29, 2026" />
-  <meta property="og:title" content="Adi & Natthawipa — Wedding Countdown" />
+  <title>Natthawipa &amp; Adi — Wedding Countdown</title>
+  <meta name="description" content="Countdown to the wedding of Natthawipa & Adi — November 29, 2026" />
+  <meta property="og:title" content="Natthawipa & Adi — Wedding Countdown" />
   <meta property="og:description" content="Sunday, November 29, 2026 — we're getting married!" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="main.jpeg" />
@@ -943,7 +943,7 @@
   <div id="gate">
     <div class="gate-inner">
       <p class="gate-eyebrow" id="gate-eyebrow">The wedding of</p>
-      <h1 class="gate-names">Adi <span>&amp;</span> Natthawipa</h1>
+      <h1 class="gate-names">Natthawipa <span>&amp;</span> Adi</h1>
       <p class="gate-date" id="gate-date">Sunday, 29 November 2026</p>
       <button class="gate-btn" id="gate-btn" type="button"
         onclick="this.closest('#gate').classList.add('open')">Step Into Our Story</button>
@@ -956,8 +956,8 @@
   </nav>
   <main>
     <p class="eyebrow" id="eyebrow">We're getting married</p>
-    <img class="photo" src="main.jpeg" alt="Adi &amp; Natthawipa" />
-    <h1 class="names">Adi <span class="amp">&amp;</span> Natthawipa</h1>
+    <img class="photo" src="main.jpeg" alt="Natthawipa &amp; Adi" />
+    <h1 class="names">Natthawipa <span class="amp">&amp;</span> Adi</h1>
     <p class="date-line" id="date-line">Sunday, the Twenty-Ninth of November, MMXXVI</p>
     <div class="divider"></div>
 
@@ -986,7 +986,7 @@
       </div>
       <div class="split-photo" id="split-photo">
         <div class="half left"><img src="story-chat.jpeg" alt="" aria-hidden="true" /></div>
-        <div class="half right"><img src="story-chat.jpeg" alt="Adi and Natthawipa chatting long-distance" /></div>
+        <div class="half right"><img src="story-chat.jpeg" alt="Natthawipa and Adi chatting long-distance" /></div>
       </div>
       <div class="chat">
         <div class="chat-header">
@@ -1006,7 +1006,7 @@
         <h2 class="chapter-title" id="ch2-title">The first hello — Singapore</h2>
       </div>
       <div class="photo-think reveal">
-        <img class="story-photo" src="story-singapore.jpeg" alt="Adi and Natthawipa meeting at Jewel Changi, Singapore" />
+        <img class="story-photo" src="story-singapore.jpeg" alt="Natthawipa and Adi meeting at Jewel Changi, Singapore" />
         <div class="think">
           <span class="bubble"><span class="heart">❤️</span></span>
           <span class="t t1"></span>
@@ -1026,7 +1026,7 @@
         <h2 class="chapter-title" id="ch3-title">Adventures together</h2>
       </div>
       <div class="photo-adv reveal" id="photo-adv">
-        <img class="story-photo" src="story-adventures.jpeg" alt="Adi and Natthawipa's travels around Southeast Asia" />
+        <img class="story-photo" src="story-adventures.jpeg" alt="Natthawipa and Adi's travels around Southeast Asia" />
         <svg class="route" viewBox="0 0 769 1024" preserveAspectRatio="none" aria-hidden="true">
           <defs>
             <mask id="route-mask" maskUnits="userSpaceOnUse" x="-10%" y="-10%" width="120%" height="120%">
@@ -1064,7 +1064,7 @@
         <h2 class="chapter-title" id="ch4-title">...we say <span class="i-do">&ldquo;I do&rdquo;</span></h2>
       </div>
       <div class="photo-wed reveal" id="photo-wed">
-        <img class="story-photo" src="story-wedding.jpeg" alt="Adi and Natthawipa on their wedding day" />
+        <img class="story-photo" src="story-wedding.jpeg" alt="Natthawipa and Adi on their wedding day" />
       </div>
       <a class="back-top reveal" href="#" id="back-top">back to the countdown</a>
     </div>
@@ -1389,7 +1389,7 @@
       currentLang = lang;
       document.documentElement.lang = lang;
       document.body.dataset.lang = lang;
-      document.title = `Adi & Natthawipa — ${t.eyebrow}`;
+      document.title = `Natthawipa & Adi — ${t.eyebrow}`;
       document.getElementById('eyebrow').textContent = t.eyebrow;
       document.getElementById('date-line').textContent = t.dateLine;
       document.getElementById('lbl-days').textContent = t.days;
@@ -1460,7 +1460,7 @@
 
       if (diff <= 0) {
         els.eyebrowEl.textContent = currentT.married;
-        document.title = `Adi & Natthawipa — ${currentT.married}`;
+        document.title = `Natthawipa & Adi — ${currentT.married}`;
         els.message.style.display = 'none';
         els.married.style.display = 'block';
         els.married.textContent = v < 864e5 ? currentT.marriedToday : currentT.marriedFor;
